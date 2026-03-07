@@ -4,4 +4,5 @@ A simulation project to explore probability distributions (M.Sc. Data Analytics 
 
 ## Project Log
 - **Day 1:** Basic project structure initialized. HTML skeleton, base CSS variables, and JS entry point.
-- **Next Steps:** Canvas resizing logic and basic random point generation.
+- **Day 2:** Implemented responsive canvas resizing (handling DPR) and a basic random-noise test loop to verify drawing performance.
+- **Next Steps:** UI development for simulation controls and histogram binning foundations.
