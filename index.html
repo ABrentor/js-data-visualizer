@@ -20,9 +20,19 @@
                 <canvas id="vizCanvas"></canvas>
             </div>
 
-            <div class="controls">
-                <!-- TODO: Add simulation controls next week -->
-                <button disabled>Simulation coming soon...</button>
+            <div class="controls" id="simControls">
+                <!-- Day 3: Adding interactive sliders -->
+                <div class="control-group">
+                    <label for="speedSlider">Sim Speed (<span id="speedVal">5</span>)</label>
+                    <input type="range" id="speedSlider" min="1" max="50" value="5">
+                </div>
+                
+                <div class="control-group">
+                    <label for="batchSlider">Batch Size (<span id="batchVal">10</span>)</label>
+                    <input type="range" id="batchSlider" min="1" max="100" value="10">
+                </div>
+                
+                <button id="resetBtn">Reset</button>
             </div>
         </main>
     </div>
