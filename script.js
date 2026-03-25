@@ -14,14 +14,17 @@ class StatVis {
     }
 
     init() {
-        this.handleResize();
-        window.addEventListener('resize', () => this.handleResize());
-
-        // Start the main visualization loop
+        // Initialize core engine state first
         this.bins = 100;
         this.data = new Array(this.bins).fill(0);
         this.samples = [];
         this.isRunning = true;
+        this.simSpeed = 5;
+        this.batchSize = 10;
+
+        // Now safe to handle resize (and draw)
+        this.handleResize();
+        window.addEventListener('resize', () => this.handleResize());
         
         this.setupUI();
         this.runSimulation();
