@@ -1,6 +1,6 @@
 /**
- * StatVis - Milestone 2
- * Core engine: Canvas scaling and high-frequency test loops.
+ * StatVis - Step 5
+ * Visual Polish: Gradients, axes, and live stats.
  */
 
 class StatVis {
@@ -102,18 +102,41 @@ class StatVis {
         
         const binWidth = this.width / this.bins;
         const maxVal = Math.max(...this.data) || 1;
-        const padding = 20;
+        const paddingBottom = 40; // More padding for axis
+        const paddingTop = 40;
+        
+        // Draw Y-Axis / X-Axis baseline
+        this.ctx.strokeStyle = '#444';
+        this.ctx.lineWidth = 1;
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, this.height - paddingBottom);
+        this.ctx.lineTo(this.width, this.height - paddingBottom);
+        this.ctx.stroke();
 
-        this.ctx.fillStyle = 'rgba(98, 0, 238, 0.8)'; // Primary color for bars
+        // Create a stylish gradient for the bars
+        const gradient = this.ctx.createLinearGradient(0, paddingTop, 0, this.height - paddingBottom);
+        gradient.addColorStop(0, '#b388ff'); // Lighter purple top
+        gradient.addColorStop(1, '#6200ee'); // Darker purple bottom
 
+        this.ctx.fillStyle = gradient;
+
+        // Draw bars
         this.data.forEach((val, i) => {
             if (val === 0) return;
-            const h = (val / maxVal) * (this.height - 2 * padding);
+            const h = (val / maxVal) * (this.height - paddingTop - paddingBottom);
             const x = i * binWidth;
-            const y = this.height - padding - h;
+            const y = this.height - paddingBottom - h;
 
-            this.ctx.fillRect(x, y, binWidth - 1, h);
+            // Draw with a slight gap for aesthetics
+            this.ctx.fillRect(x, y, Math.max(binWidth - 1, 1), h);
         });
+        
+        // Draw live stats
+        this.ctx.fillStyle = '#bbb';
+        this.ctx.font = '14px sans-serif';
+        const totalSamples = this.data.reduce((a, b) => a + b, 0);
+        this.ctx.fillText(`Total Samples: ${totalSamples.toLocaleString()}`, 15, 25);
+        this.ctx.fillText(`Peak Bin: ${maxVal.toLocaleString()}`, 15, 45);
     }
 }
 
